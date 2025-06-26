@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AppApuntesGrupo2.ViewModels"
+             x:Class="AppApuntesGrupo2.Views.RecordatoriosPage">
+
+    <ContentPage.BindingContext>
+        <vm:RecordatoriosViewModel />
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout Padding="20" Spacing="15">
+
+        <Label Text="Nuevo Recordatorio" FontSize="20" HorizontalOptions="Center" />
+
+        <Entry Placeholder="Texto del recordatorio"
+               Text="{Binding NuevoTexto}" />
+
+        <TimePicker Time="{Binding NuevaFechaHora}" />
+
+        <Button Text="Agregar Recordatorio"
+                Command="{Binding AgregarCommand}" />
+
+        <Label Text="Lista de Recordatorios" FontSize="18" Margin="0,20,0,0" />
+
+        <CollectionView ItemsSource="{Binding Recordatorios}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="Gray" Padding="10" CornerRadius="10" Margin="5">
+                        <VerticalStackLayout>
+                            <Label Text="{Binding Texto}" FontSize="16" />
+                            <Label Text="{Binding FechaHora}" FontSize="14" TextColor="Gray" />
+                            <Label Text="{Binding Activo, StringFormat='Activo: {0}'}" FontSize="14" TextColor="Gray" />
+
+                            <Button Text="Eliminar"
+                                    Command="{Binding BindingContext.EliminarCommand, Source={x:Reference MainPage}}"
+                                    CommandParameter="{Binding .}" 
+                                    BackgroundColor="Red"
+                                    TextColor="White" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+
+</ContentPage>
+
+
+
